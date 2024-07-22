@@ -38,9 +38,7 @@ export const getAll = async (req, res) => {
     const nextURL = next < total ? `${currentURL}?limit=${limit}&offset=${next}` : null
     const previous = offset - limit < 0 ? null : offset - limit
     const previousURL = previous != null ? `${currentURL}?limit=${limit}&offset=${previous}` : null
-    if (!news) {
-      return res.status(400).res({ message: "There are no registered news" })
-    }
+
     return res.status(200).send({
       nextURL, previousURL, limit, offset, total, result: news.map(newsItem => ({ id: newsItem._id, title: newsItem.title, text: newsItem.text, banner: newsItem.banner, likes: newsItem.likes, comments: newsItem.comments, name: newsItem.user.name, username: newsItem.user.username, userAvatar: newsItem.user.avatar }))
     })
